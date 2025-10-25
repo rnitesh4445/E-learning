@@ -13,7 +13,7 @@ import Edit_video from "./Admin/Edit_video.jsx";
 import DeleteVideo from "./Admin/DeleteVideo.jsx";
 import AddVideo from "./Admin/AddVideo.jsx";
 
- function Index() {
+ export function Index() {
   return (
     <UserContextProvider>
       <BrowserRouter>
@@ -48,4 +48,3 @@ import AddVideo from "./Admin/AddVideo.jsx";
     </UserContextProvider>
   );
 }
-export default Index

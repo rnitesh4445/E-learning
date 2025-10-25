@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../context/UserContext.js";
 import { useNavigate, Outlet } from "react-router-dom";
 
 function Admin_dashboard() {

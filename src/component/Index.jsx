@@ -1,17 +1,17 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import UserContextProvider from "./context/UserContextProvider";
+import UserContextProvider from "./context/UserContextProvider.jsx";
 import Header from "./Header";
 
-import User_login from "./User/User_login";
-import User_signup from "./User/User_reagister";
+import User_login from "./User/User_login.jsx";
+import User_signup from "./User/User_reagister.jsx";
 import User_dashboard from "./User_dashboard";
-import Home from "../Home";
-import Admin_login from "./Admin/Admin_login";
-import Admin_dashboard from "./Admin/Admin_dashboard";
-import Edit_video from "./Admin/Edit_video";
-import DeleteVideo from "./Admin/DeleteVideo";
-import AddVideo from "./Admin/AddVideo";
+import Home from "../Home.jsx";
+import Admin_login from "./Admin/Admin_login.jsx";
+import Admin_dashboard from "./Admin/Admin_dashboard.jsx";
+import Edit_video from "./Admin/Edit_video.jsx";
+import DeleteVideo from "./Admin/DeleteVideo.jsx";
+import AddVideo from "./Admin/AddVideo.jsx";
 
 export function Index() {
   return (

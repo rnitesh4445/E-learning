@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useContext ,useEffect} from "react";
-import { UserContext } from "./context/UserContext";
+import { UserContext } from "./context/UserContext.js";
 import Card from "./Card";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";

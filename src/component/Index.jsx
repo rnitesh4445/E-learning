@@ -48,3 +48,4 @@ import AddVideo from "./Admin/AddVideo.jsx";
     </UserContextProvider>
   );
 }
+export default Index;

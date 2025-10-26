@@ -10,7 +10,7 @@ function Home() {
       style={{ backgroundColor: "#f8f9fa" }}
     >
       <div className="d-flex flex-wrap gap-4 justify-content-center">
-        {/* Admin Card */}
+        
         <div
           className="card shadow-lg text-center"
           style={{
@@ -40,8 +40,7 @@ function Home() {
             <button className="btn btn-primary mt-2">Login as Admin</button>
           </div>
         </div>
-
-        {/* User Card */}
+        
         <div
           className="card shadow-lg text-center"
           style={{

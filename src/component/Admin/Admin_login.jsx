@@ -7,6 +7,7 @@ import { UserContext } from "../context/UserContext.js";
 function Admin_login() {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["admin_id"]);
+  console.log(cookies)
   const { admin } = useContext(UserContext);
 
   const formik = useFormik({

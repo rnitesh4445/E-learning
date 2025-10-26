@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserContextProvider from "./context/UserContextProvider.jsx";
 import Header from "./Header";
-
 import User_login from "./User/User_login.jsx";
 import User_signup from "./User/User_reagister.jsx";
 import User_dashboard from "./User_dashboard";
@@ -39,13 +38,10 @@ import AddVideo from "./Admin/AddVideo.jsx";
             path="/admin-dashboard/delete-video/:id"
             element={<DeleteVideo />}
           />
-          <Route
-            path="/admin-dashboard/add-video"
-            element={<AddVideo/>}
-          />
+          <Route path="/admin-dashboard/add-video" element={<AddVideo />} />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>
   );
 }
-export default Index
+export default Index;

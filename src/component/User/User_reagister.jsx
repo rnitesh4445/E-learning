@@ -7,6 +7,7 @@ import axios from "axios";
 function User_signup() {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
+  console.log(setUser)
    const [userMsg, setUserMsg] = useState("");
    const [userClass, setUserClass] = useState("");
   const formik = useFormik({

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useSearch } from "./Custom_Hook/Search";
 import { UserContext } from "./context/UserContext";
 import { Link } from "react-router-dom";
@@ -12,7 +12,7 @@ function Header() {
   const { setFil, video } = useContext(UserContext);
   const filterItem = useSearch(query, video);
   const [cookies, setCookie, removeCookie] = useCookies(["user_id"]);
-
+ console.log(setCookie)
   function searchItem() {
     setFil(filterItem);
   }

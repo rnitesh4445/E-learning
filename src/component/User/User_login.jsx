@@ -7,6 +7,7 @@ import { useCookies } from "react-cookie";
 
 function User_login() {
   const[cookies,setCookie,removeCookie]=useCookies(['user_id']);
+  console.log(removeCookie)
   console.log(cookies)
   const { user } = useContext(UserContext); 
   const navigate = useNavigate();

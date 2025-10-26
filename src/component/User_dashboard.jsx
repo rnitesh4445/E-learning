@@ -9,7 +9,7 @@ import { useCookies } from "react-cookie";
 
 function User_dashboard() {
    const navigate=useNavigate()
-    const [cookies,setCookie,removeCookie]=useCookies(['user_id'])
+    const [cookies]=useCookies(['user_id'])
    useEffect(() => {
      if (!cookies["user_id"]) {
        navigate("/");

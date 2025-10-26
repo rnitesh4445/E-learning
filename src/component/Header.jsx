@@ -66,7 +66,7 @@ function Header() {
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center gap-4 fs-5">
               <li className="nav-item">
                 <Link
-                  to="/home"
+                  to="/user-dashboard"
                   className="nav-link text-white"
                   onClick={() => setFil(video)}
                   style={{ fontWeight: 500 }}

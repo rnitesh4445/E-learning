@@ -1,23 +1,26 @@
 import React, { useContext } from "react";
 import { UserContext } from "../context/UserContext.js";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Admin_dashboard() {
   const { video } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleAddVideo = () => {
-   navigate(`/admin-dashboard/add-video`);
+    navigate(`/admin-dashboard/add-video`);
   };
 
   const handleEdit = (id) => {
     navigate(`/admin-dashboard/edit-video/${id}`);
   };
 
-
   const handleDelete = (id) => {
-navigate(`/admin-dashboard/delete-video/${id}`);
+    navigate(`/admin-dashboard/delete-video/${id}`);
   };
+
+  if (!video) {
+    return <p className="text-center mt-4">Loading videos...</p>;
+  }
 
   return (
     <div className="container mt-4">
@@ -51,18 +54,22 @@ navigate(`/admin-dashboard/delete-video/${id}`);
                     {item.title || "Untitled"}
                   </td>
                   <td className="text-center">
-                    <div
-                      className="ratio ratio-16x9 mx-auto"
-                      style={{ maxWidth: "250px" }}
-                    >
-                      <iframe
-                        src={item.url}
-                        title={item.title}
-                    
-                        allowFullScreen
-                        className="rounded"
-                      ></iframe>
-                    </div>
+                    {item.url ? (
+                      <div
+                        className="ratio ratio-16x9 mx-auto"
+                        style={{ maxWidth: "250px" }}
+                      >
+                        <iframe
+                          src={item.url}
+                          title={item.title || "Video Preview"}
+                          frameBorder="0"
+                          allowFullScreen
+                          className="rounded"
+                        ></iframe>
+                      </div>
+                    ) : (
+                      <span className="text-muted">No video URL</span>
+                    )}
                   </td>
                   <td className="text-center">
                     <div className="d-flex justify-content-center flex-wrap gap-2">
@@ -92,8 +99,6 @@ navigate(`/admin-dashboard/delete-video/${id}`);
           </tbody>
         </table>
       </div>
-
-    
     </div>
   );
 }

@@ -8,13 +8,25 @@ function DeleteVideo() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const selectedVideo = video.find((v) => v.id === id);
+  const videosData = video[0]?.videos || [];
+  const selectedVideo = videosData.find((v) => v.id === id);
 
   const handleDelete = async () => {
     if (!selectedVideo) return;
+
     try {
-      await axios.delete(`http://localhost:3000/videos/${id}`);
-      setVideo(video.filter((v) => v.id !== id));
+      // Delete request (mockapi usually supports DELETE)
+      await axios.delete(
+        `https://68fdb7037c700772bb11bd32.mockapi.io/dbjson/library/${selectedVideo.id}`
+      );
+
+      // Update context state
+      setVideo((prev) => {
+        const newVideo = [...prev];
+        newVideo[0].videos = newVideo[0].videos.filter((v) => v.id !== id);
+        return newVideo;
+      });
+
       navigate("/admin-dashboard");
     } catch (error) {
       console.error("Delete failed:", error);

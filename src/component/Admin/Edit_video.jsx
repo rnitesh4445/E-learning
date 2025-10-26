@@ -7,11 +7,11 @@ import axios from "axios";
 function Edit_video() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { video } = useContext(UserContext);
+  const { video, setVideo } = useContext(UserContext);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
   useEffect(() => {
-    const vid = video.find((v) => v.id === id);
+    const vid = video[0]?.videos.find((v) => v.id === id);
     if (vid) setSelectedVideo(vid);
   }, [id, video]);
 
@@ -27,7 +27,21 @@ function Edit_video() {
     },
     onSubmit: async (values) => {
       try {
-        await axios.put(`http://localhost:3000/videos/${id}`, values);
+        // Update API (mockapi.io endpoint)
+        await axios.put(
+          `https://68fdb7037c700772bb11bd32.mockapi.io/dbjson/library/${selectedVideo.id}`,
+          values
+        );
+
+        // Update local state
+        setVideo((prev) => {
+          const newVideo = [...prev];
+          newVideo[0].videos = newVideo[0].videos.map((v) =>
+            v.id === selectedVideo.id ? { ...v, ...values } : v
+          );
+          return newVideo;
+        });
+
         alert("Video updated successfully!");
         navigate("/admin-dashboard");
       } catch (error) {

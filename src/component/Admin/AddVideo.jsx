@@ -36,11 +36,25 @@ function AddVideo() {
     };
 
     try {
-      await axios.post("http://localhost:3000/videos", newVideo);
-      setVideo([...video, newVideo]);
+      // Post to API
+      await axios.post(
+        "https://68fdb7037c700772bb11bd32.mockapi.io/dbjson/library",
+        newVideo
+      );
+
+      // Update context properly (nested videos)
+      setVideo((prev) => {
+        const updated = [...prev];
+        if (updated[0]?.videos) {
+          updated[0].videos = [...updated[0].videos, newVideo];
+        }
+        return updated;
+      });
+
       navigate("/admin-dashboard");
     } catch (error) {
       console.error("Error adding video:", error);
+      alert("Failed to add video.");
     }
   };
 

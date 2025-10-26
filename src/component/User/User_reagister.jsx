@@ -1,4 +1,4 @@
-import React, { useContext,useState } from "react";
+import React, { useContext, useState } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext.js";
@@ -7,9 +7,9 @@ import axios from "axios";
 function User_signup() {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
-  console.log(setUser)
-   const [userMsg, setUserMsg] = useState("");
-   const [userClass, setUserClass] = useState("");
+  const [userMsg, setUserMsg] = useState("");
+  const [userClass, setUserClass] = useState("");
+
   const formik = useFormik({
     initialValues: {
       user_id: "",
@@ -17,26 +17,34 @@ function User_signup() {
       password: "",
       mobile: "",
     },
-    onSubmit: (values) => {
-      axios.post('http://localhost:3000/users',values)
-      alert("sign-up  successfully...")
-      navigate('/user-login')
+    onSubmit: async (values) => {
+      try {
+        // Post new user
+        const response = await axios.post(
+          "https://my-json-server.typicode.com/rnitesh4445/E-learning/users",
+          values
+        );
+        // Update local state
+        setUser([...user, response.data]);
+        alert("Sign-up successful!");
+        navigate("/user-login");
+      } catch (error) {
+        console.error("Error signing up:", error);
+        alert("Sign-up failed, try again.");
+      }
     },
   });
-  function verify(e)
-  {
-    for (var i of user ) {
-      if (i.user_id === e.target.value) {
-        setUserMsg("User Id Taken - Try Another");
-        setUserClass("text-danger");
-        break;
-      } else {
-        setUserMsg("User Id Available");
-        setUserClass("text-success");
-      }
+
+  const verify = (e) => {
+    const exists = user.some((u) => u.user_id === e.target.value);
+    if (exists) {
+      setUserMsg("User ID Taken - Try Another");
+      setUserClass("text-danger");
+    } else {
+      setUserMsg("User ID Available");
+      setUserClass("text-success");
     }
- 
-  }
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
@@ -45,7 +53,6 @@ function User_signup() {
         style={{ width: "380px", borderRadius: "15px" }}
       >
         <h3 className="text-center mb-4">User Sign Up</h3>
-
         <form onSubmit={formik.handleSubmit}>
           <div className="mb-3">
             <label htmlFor="user_id" className="form-label">
@@ -117,7 +124,7 @@ function User_signup() {
             <button
               type="button"
               className="btn btn-secondary px-4"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/user-login")}
             >
               Back to Login
             </button>

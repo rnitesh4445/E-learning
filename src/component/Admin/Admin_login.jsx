@@ -7,7 +7,6 @@ import { UserContext } from "../context/UserContext.js";
 function Admin_login() {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["admin_id"]);
-  console.log(cookies)
   const { admin } = useContext(UserContext);
 
   const formik = useFormik({
@@ -15,15 +14,22 @@ function Admin_login() {
       admin_id: "",
       password: "",
     },
-    onSubmit: (sbt) => {
-      const matchedAdmin = admin.find((a) => a.admin_id === sbt.admin_id);
+    onSubmit: (values) => {
+      if (!admin || admin.length === 0) {
+        alert("Admin data is loading. Please try again shortly.");
+        return;
+      }
+
+      const matchedAdmin = admin.find(
+        (a) => a.admin_id.trim() === values.admin_id.trim()
+      );
 
       if (!matchedAdmin) {
         alert("Invalid Admin ID");
         return;
       }
 
-      if (matchedAdmin.password === sbt.password) {
+      if (matchedAdmin.password === values.password) {
         setCookie("admin_id", matchedAdmin.admin_id, { path: "/" });
         navigate("/admin-dashboard");
       } else {

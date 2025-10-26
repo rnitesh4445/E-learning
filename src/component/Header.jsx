@@ -1,24 +1,24 @@
 import React, { useContext, useState } from "react";
 import { useSearch } from "./Custom_Hook/Search";
 import { UserContext } from "./context/UserContext";
-import { Link } from "react-router-dom";
-import Home from "./User_dashboard";
+import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const { setFil, video } = useContext(UserContext);
   const filterItem = useSearch(query, video);
-  const [cookies, setCookie, removeCookie] = useCookies(["user_id"]);
- console.log(setCookie)
-  function searchItem() {
+  const [cookies, , removeCookie] = useCookies(["user_id"]);
+  const userId = cookies["user_id"];
+
+  const searchItem = () => {
     setFil(filterItem);
-  }
+  };
+
   return (
-    <div className=" sticky-top">
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark p-3 text-white ">
+    <div className="sticky-top">
+      <nav className="navbar navbar-expand-md navbar-dark bg-dark p-3 text-white">
         <div className="container-fluid">
           <img
             src="/img/logo.png"
@@ -33,7 +33,6 @@ function Header() {
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarContent"
-           
           >
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -70,7 +69,7 @@ function Header() {
                   to="/home"
                   className="nav-link text-white"
                   onClick={() => setFil(video)}
-                  style={{ fontWeight: "500" }}
+                  style={{ fontWeight: 500 }}
                 >
                   Home
                 </Link>
@@ -80,18 +79,16 @@ function Header() {
                 <Link
                   to="/about"
                   className="nav-link text-white"
-                  style={{ fontWeight: "500" }}
+                  style={{ fontWeight: 500 }}
                 >
                   About Us
                 </Link>
               </li>
 
               <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle d-flex align-items-center text-white"
-                  href="#"
+                <button
+                  className="btn nav-link dropdown-toggle d-flex align-items-center text-white"
                   id="userDropdown"
-                  role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                   style={{
@@ -104,27 +101,21 @@ function Header() {
                     className="bi bi-person-circle me-2"
                     style={{ fontSize: "1.3rem", color: "white" }}
                   ></i>
-                  <span style={{ fontWeight: "500" }}>
-                    {cookies["user_id"]}
-                  </span>
-                </a>
+                  <span style={{ fontWeight: 500 }}>{userId}</span>
+                </button>
 
                 <ul
                   className="dropdown-menu dropdown-menu-end shadow-sm mt-2"
                   aria-labelledby="userDropdown"
-                  style={{
-                    minWidth: "170px",
-                    borderRadius: "8px",
-                  }}
+                  style={{ minWidth: "170px", borderRadius: "8px" }}
                 >
                   <li>
-                    <a
+                    <button
                       className="dropdown-item d-flex align-items-center"
-                      href="#"
-                      style={{ fontWeight: "500" }}
+                      style={{ fontWeight: 500 }}
                     >
                       <i className="bi bi-person me-2"></i> Profile
-                    </a>
+                    </button>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />
@@ -132,11 +123,11 @@ function Header() {
                   <li>
                     <button
                       className="dropdown-item text-danger d-flex align-items-center"
+                      style={{ fontWeight: 500 }}
                       onClick={() => {
                         removeCookie("user_id", { path: "/" });
                         navigate("/");
                       }}
-                      style={{ fontWeight: "500" }}
                     >
                       <i className="bi bi-box-arrow-right me-2"></i> Logout
                     </button>
